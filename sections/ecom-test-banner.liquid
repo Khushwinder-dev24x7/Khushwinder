@@ -1,0 +1,115 @@
+<section class="custom-banner-section">
+
+  <div class="custom-banner-top">
+    <img class="banner-image-pc" src="{{ section.settings.background_image_desktop | image_url }}" style="width:100%; height:100%; max-height:600px;">
+    <img class="banner-image-mobile" src="{{ section.settings.background_image_desktop | image_url }}" style="width:100%; height:100%; max-height:600px; display:none;">
+    <div class="custom-banner-content-wrap">
+      <div class="custom-banner-content">
+        <h2 class="custom-banner-title">{{ section.settings.title }}</h2>
+        <p class="custom-banner-description">{{ section.settings.description }}</p>
+        <a href="{{ section.settings.button_link }}" class="custom-banner-button">
+          {{ section.settings.button_text }}
+        </a>     
+      </div>
+    </div>
+  </div>
+
+  <div class="custom-banner-top" style="background-color:#F5F5F5">
+    <p class="custom-banner-footer" style="margin:0;">{{ section.settings.footer_text }}</p>
+  </div>
+</section>
+
+<style>
+  .custom-banner-content-wrap {
+      position: absolute;
+      top: 0;
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      grid-template-rows: repeat(2,1fr);
+      height: 100%;
+      max-height:600px;
+  }
+  .custom-banner-top {
+      max-height: 600px;
+  }
+
+  .custom-banner-content {
+      grid-row-start: 2;
+  }
+
+  .custom-banner-section {
+    position: relative;
+    text-align: center;
+  }
+  
+  .custom-banner-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+
+  @media (max-width: 768px) {
+   
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Ecom Test Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image_desktop",
+      "label": "Background Image For Desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_mobile",
+      "label": "Background Image For Mobile"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "The Gift Guide"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season."
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "SHOP NOW →"
+    },
+    {
+      "type": "text",
+      "id": "footer_text",
+      "label": "Footer Text",
+      "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ecom Test Banner",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+
+
+

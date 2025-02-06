@@ -200,7 +200,7 @@
       {%- endif -%}
     {%- endif -%}
 
-    <div class="header__icons{% if section.settings.enable_country_selector or section.settings.enable_language_selector %} header__icons--localization header-localization{% endif %}">
+    <div class="header__icons{% if section.settings.enable_country_selector or section.settings.enable_language_selector %} header__icons--localization header-localization{% endif %}" style="display:none;">
       <div class="desktop-localization-wrapper">
         {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
           <localization-form class="small-hide medium-hide" data-prevent-hide>
@@ -278,6 +278,14 @@
           </div>
         {%- endif -%}
       </a>
+    </div>
+
+    <div class="Header-info-text">
+        <p class="info-text">{{section.settings.header_info}}</p>
+    </div>
+    
+    <div class="Header-action-button">
+        <a href="{{ shop.url }}/collections" class="custom-header-button button button--primary">CHOOSE GIFT →</a>
     </div>
   </header>
 </{% if section.settings.sticky_header_type != 'none' %}sticky-header{% else %}div{% endif %}>
@@ -633,6 +641,12 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 20
+    },
+    {
+      "type": "textarea",
+      "id": "header_info",
+      "label": "Header Info Bar",
+      "default": "Header Info"
     }
   ],
   "blocks": [

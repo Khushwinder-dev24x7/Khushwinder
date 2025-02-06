@@ -1,0 +1,285 @@
+<section 
+  class="product-section" 
+  style="background-image: url('{{ section.settings.background_image | image_url }}');">
+  
+  <div class="custom-product-grid-main">
+    {% for block in section.blocks %}
+      {% assign product = all_products[block.settings.product] %}
+      {% if product %}
+      <div class="custom-product-grid-item">  
+      <img src={{ product.featured_image | image_url }} style="width:100%; height:100%;">
+       <div class="circle-wrap"> 
+       <div class="product" 
+          data-product-id="{{ product.id }}" 
+          data-product-title="{{ product.title }}"
+          data-product-image="{{ product.featured_image | image_url }}"
+          data-product-price="{{ product.price | money }}"
+          data-product-variants='{{ product.variants | json }}'
+          style="display:block; top: {{ block.settings.position_y }}%; left: {{ block.settings.position_x }}%;"
+        ><img src="https://cdn.shopify.com/s/files/1/0583/4178/5664/files/Group_1000008195.png?v=1738753278" style="max-width20px; max-height:20px;"></div>
+        </div>
+      </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+<div class="overlay"></div>
+<div class="product-modal">
+  <span class="close-btn">✖</span>
+  <div class="modal-content"></div>
+</div>
+
+<style>
+.circle-wrap {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+}
+  .product-section {
+    position: relative;
+  }
+  .custom-product-grid-item{
+    position: relative;
+  }
+  .custom-product-grid-main {    
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap:1rem;
+  }
+
+  .product {
+    position: absolute;
+    width: 24px;
+    height: 24px;   
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .product-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    width: 350px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: none;
+    z-index: 1000;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 999;
+  }
+
+  .close-btn {
+    display: block;
+    text-align: right;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .variant-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 10px;
+  }
+
+  .variant-button {
+    padding: 8px 12px;
+    border: 1px solid #000;
+    background: white;
+    cursor: pointer;
+  }
+
+  .variant-button.active {
+    background: black;
+    color: white;
+  }
+
+  @media only screen and (max-width: 768px) {
+  .custom-product-grid-main {
+      grid-template-columns: repeat(2,1fr);    
+  }
+}
+
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const products = document.querySelectorAll(".product");
+  const modal = document.querySelector(".product-modal");
+  const overlay = document.querySelector(".overlay");
+  const modalContent = document.querySelector(".modal-content");
+  const closeModal = document.querySelector(".close-btn");
+
+  products.forEach(product => {
+    product.addEventListener("click", function () {
+      const productId = this.dataset.productId;
+      const productTitle = this.dataset.productTitle;
+      const productImage = this.dataset.productImage;
+      let productVariants = [];
+
+      try {
+        productVariants = JSON.parse(this.dataset.productVariants);
+      } catch (error) {
+        console.error("Error parsing product variants:", error);
+      }
+
+      // Extract unique colors and sizes
+      let colors = [...new Set(productVariants.map(v => v.option1))];
+      let sizes = [...new Set(productVariants.map(v => v.option2))];
+
+      let colorHtml = colors.map(color => `<button class="variant-button color-option" data-value="${color}">${color}</button>`).join("");
+      let sizeHtml = sizes.map(size => `<button class="variant-button size-option" data-value="${size}">${size}</button>`).join("");
+
+      modalContent.innerHTML = `
+        <h2>${productTitle}</h2>
+        <img src="${productImage}" alt="${productTitle}" style="width:100%; height:auto;">
+        <p id="product-price">Price: ${productVariants[0].price / 100}</p>
+        
+        <div>
+          <label>Choose Color:</label>
+          <div class="variant-buttons" id="color-options">${colorHtml}</div>
+        </div>
+
+        <div>
+          <label>Choose Size:</label>
+          <div class="variant-buttons" id="size-options">${sizeHtml}</div>
+        </div>
+
+        <button id="add-to-cart" disabled>Add to Cart</button>
+      `;
+
+      modal.style.display = "block";
+      overlay.style.display = "block";
+
+      let selectedColor = null;
+      let selectedSize = null;
+
+      function updateVariantSelection() {
+        const selectedVariant = productVariants.find(v => v.option1 === selectedColor && v.option2 === selectedSize);
+        const addToCartButton = document.getElementById("add-to-cart");
+
+        if (selectedVariant) {
+          document.getElementById("product-price").innerHTML = `Price: ${selectedVariant.price / 100}`;
+          addToCartButton.removeAttribute("disabled");
+          addToCartButton.setAttribute("data-variant-id", selectedVariant.id);
+        } else {
+          addToCartButton.setAttribute("disabled", "true");
+        }
+      }
+
+      document.querySelectorAll(".color-option").forEach(button => {
+        button.addEventListener("click", function () {
+          document.querySelectorAll(".color-option").forEach(btn => btn.classList.remove("active"));
+          this.classList.add("active");
+          selectedColor = this.dataset.value;
+          updateVariantSelection();
+        });
+      });
+
+      document.querySelectorAll(".size-option").forEach(button => {
+        button.addEventListener("click", function () {
+          document.querySelectorAll(".size-option").forEach(btn => btn.classList.remove("active"));
+          this.classList.add("active");
+          selectedSize = this.dataset.value;
+          updateVariantSelection();
+        });
+      });
+
+      document.getElementById("add-to-cart").addEventListener("click", function () {
+        const variantId = this.getAttribute("data-variant-id");
+        if (variantId) {
+          addToCart(variantId);
+        }
+      });
+    });
+  });
+
+  closeModal.addEventListener("click", function () {
+    modal.style.display = "none";
+    overlay.style.display = "none";
+  });
+
+  overlay.addEventListener("click", function () {
+    modal.style.display = "none";
+    overlay.style.display = "none";
+  });
+
+  function addToCart(variantId) {
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: variantId, quantity: 1 })
+    })
+    .then(response => response.json())
+    .then(data => {
+      alert("Item added to cart!");
+      modal.style.display = "none";
+      overlay.style.display = "none";
+    })
+    .catch(error => console.error("Error adding to cart:", error));
+  }
+});
+</script>
+
+{% schema %}
+{
+  "name": "Ecom Test Products",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product"
+        },
+        {
+          "type": "range",
+          "id": "position_x",
+          "label": "X Position (%)",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "position_y",
+          "label": "Y Position (%)",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 50
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ecom Test Products",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
