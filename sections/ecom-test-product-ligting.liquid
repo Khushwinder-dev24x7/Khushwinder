@@ -12,6 +12,7 @@
        <div class="product" 
           data-product-id="{{ product.id }}" 
           data-product-title="{{ product.title }}"
+          data-product-description="{{ product.description | escape }}"
           data-product-image="{{ product.featured_image | image_url }}"
           data-product-price="{{ product.price | money }}"
           data-product-variants='{{ product.variants | json }}'
@@ -63,7 +64,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background: white;
-    padding: 20px;
+    padding: 0 20px;
     width: 350px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     display: none;
@@ -90,7 +91,7 @@
 
   .variant-buttons {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 5px;
     margin-bottom: 10px;
   }
@@ -112,7 +113,96 @@
       grid-template-columns: repeat(2,1fr);    
   }
 }
+.custom-dropdown {
+      position: relative;
+      width: 100%;
+  }
 
+  .custom-dropdown-label {
+      display: block;
+      margin-bottom: 5px;
+  }
+
+ .custom-dropdown-btn {
+    display: block;
+    width: 100%;
+    padding: 02px 10px;
+    border: 1px solid #000000;
+    background: rgb(255, 255, 255);
+    cursor: pointer;
+    text-align: left;
+    position: relative;
+}
+ 
+ .custom-dropdown-btn::after {
+    content: "▼";
+    position: absolute;
+    right: 10px;
+    transition: transform 0.3s ease;
+    height: 100%;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
+    z-index: 999;
+}
+
+label.custom-dropdown-btn {
+    background: linear-gradient(to right, 
+    transparent calc(88% - 0.5px), /* Space before the line */
+    black calc(80% - 0.4px), /* Start the black line */
+    black calc(80% + 0.4px), /* End the black line */
+    transparent calc(88% + 0.5px) /* Space after the line */
+  );
+}
+  
+  .custom-dropdown-content {
+    position:absolute;
+    width: 100%;
+    background: white !important;
+    border: 1px solid #ccc;
+    max-height: 100px;
+    overflow-y: auto;
+    display: none;    
+    z-index:99;
+}
+
+  .custom-dropdown-content label {
+    display: block;
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+}
+
+  .custom-dropdown-content label:hover {
+      background: black;
+      color: white;
+  }
+
+  /* Hide the checkbox */
+  .custom-dropdown-input {
+      display: none;
+  }
+
+  /* Show dropdown content when checkbox is checked */
+  .custom-dropdown-input:checked + .custom-dropdown-content {
+      display: block;
+  }
+
+  /* Rotate arrow icon when dropdown is open */
+  .custom-dropdown-input:checked + .custom-dropdown-content + .custom-dropdown-btn::after {
+      transform: rotate(180deg);
+  }
+  .product-info-wrap {
+      display: grid;
+      grid-template-columns: 40% 60%;
+      gap: 1rem;
+  }
+  .product-info-wrap p {
+      margin: unset !important;
+  }
+  
 </style>
 
 <script>
@@ -127,38 +217,57 @@ document.addEventListener("DOMContentLoaded", function () {
     product.addEventListener("click", function () {
       const productId = this.dataset.productId;
       const productTitle = this.dataset.productTitle;
+      const productDescription  = this.dataset.productDescription ;
       const productImage = this.dataset.productImage;
       let productVariants = [];
 
       try {
         productVariants = JSON.parse(this.dataset.productVariants);
+        console.log('I am data');
+        console.log(JSON.parse(this.dataset.productVariants));
       } catch (error) {
         console.error("Error parsing product variants:", error);
       }
 
       // Extract unique colors and sizes
-      let colors = [...new Set(productVariants.map(v => v.option1))];
-      let sizes = [...new Set(productVariants.map(v => v.option2))];
+      let sizes = [...new Set(productVariants.map(v => v.option1))];
+      let colors = [...new Set(productVariants.map(v => v.option2))];
 
-      let colorHtml = colors.map(color => `<button class="variant-button color-option" data-value="${color}">${color}</button>`).join("");
-      let sizeHtml = sizes.map(size => `<button class="variant-button size-option" data-value="${size}">${size}</button>`).join("");
+      let colorHtml = colors.map(color => `<button class="variant-button color-option" data-value="${color}" style="width:100%;">${color}</button>`).join("");
+      let sizeHtml = sizes.map(size => `<label for="custom-dropdown-toggle" class="size-option" data-value="${size}">${size}</label> `).join("");
 
       modalContent.innerHTML = `
-        <h2>${productTitle}</h2>
-        <img src="${productImage}" alt="${productTitle}" style="width:100%; height:auto;">
-        <p id="product-price">Price: ${productVariants[0].price / 100}</p>
-        
+      <div class="product-info-wrap">
+        <div class="product-img">    
+          <img src="${productImage}" alt="${productTitle}" style="width:100%; height:auto;">    
+        </div>
+        <div class="product-details">    
+           <p class="title">${productTitle}</p>
+           <p class="price" id="product-price">Price: ${productVariants[0].price / 100}</p>
+           <p class="description">${productDescription}</p>                  
+        </div>
+      </div>
+
+      <div class="product-variations-wrap" style="min-height:255px;"> 
         <div>
-          <label>Choose Color:</label>
+          <label>Color:</label>
           <div class="variant-buttons" id="color-options">${colorHtml}</div>
         </div>
 
+        <div class="custom-dropdown">
+            <label class="custom-dropdown-label">Size:</label>
+            <label id="size-variant-main-text" class="custom-dropdown-btn" for="custom-dropdown-toggle">Choose your size</label>
+            <div class="">
+              <input type="checkbox" id="custom-dropdown-toggle" class="custom-dropdown-input" style="display:none;">
+              <div class="custom-dropdown-content variant-buttons" id="size-options">
+                  ${sizeHtml}
+              </div>
+            </div>            
+          </div>
         <div>
-          <label>Choose Size:</label>
-          <div class="variant-buttons" id="size-options">${sizeHtml}</div>
-        </div>
-
-        <button id="add-to-cart" disabled>Add to Cart</button>
+      <div>
+        
+        <button id="add-to-cart" class="button button--primary" disabled style="width:100%; margin:5rem 0 0 0;">ADD TO CART →</button>
       `;
 
       modal.style.display = "block";
@@ -168,7 +277,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let selectedSize = null;
 
       function updateVariantSelection() {
-        const selectedVariant = productVariants.find(v => v.option1 === selectedColor && v.option2 === selectedSize);
+        const selectedVariant = productVariants.find(v => v.option1 === selectedSize && v.option2 === selectedColor);
         const addToCartButton = document.getElementById("add-to-cart");
 
         if (selectedVariant) {
@@ -194,6 +303,8 @@ document.addEventListener("DOMContentLoaded", function () {
           document.querySelectorAll(".size-option").forEach(btn => btn.classList.remove("active"));
           this.classList.add("active");
           selectedSize = this.dataset.value;
+          document.querySelector('#size-variant-main-text').innerText =selectedSize;
+
           updateVariantSelection();
         });
       });
@@ -231,6 +342,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .catch(error => console.error("Error adding to cart:", error));
   }
+
 });
 </script>
 
