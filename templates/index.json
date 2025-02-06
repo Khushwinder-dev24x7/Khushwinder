@@ -47,12 +47,39 @@
             "position_x": 50,
             "position_y": 50
           }
+        },
+        "product_NBYcTY": {
+          "type": "product",
+          "settings": {
+            "product": "classic-leather-jacket",
+            "position_x": 50,
+            "position_y": 50
+          }
+        },
+        "product_nUEkhi": {
+          "type": "product",
+          "settings": {
+            "product": "classic-varsity-top",
+            "position_x": 50,
+            "position_y": 50
+          }
+        },
+        "product_hzjyaA": {
+          "type": "product",
+          "settings": {
+            "product": "dark-denim-top",
+            "position_x": 50,
+            "position_y": 50
+          }
         }
       },
       "block_order": [
         "product_ykRjUr",
         "product_KBPHn4",
-        "product_QQHXmb"
+        "product_QQHXmb",
+        "product_NBYcTY",
+        "product_nUEkhi",
+        "product_hzjyaA"
       ],
       "settings": {}
     }
