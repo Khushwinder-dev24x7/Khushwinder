@@ -23,6 +23,37 @@
     },
     "ecom_test_product_ligting_j6MAap": {
       "type": "ecom-test-product-ligting",
+      "blocks": {
+        "product_ykRjUr": {
+          "type": "product",
+          "settings": {
+            "product": "black-leather-bag",
+            "position_x": 50,
+            "position_y": 50
+          }
+        },
+        "product_KBPHn4": {
+          "type": "product",
+          "settings": {
+            "product": "blue-silk-tuxedo",
+            "position_x": 50,
+            "position_y": 50
+          }
+        },
+        "product_QQHXmb": {
+          "type": "product",
+          "settings": {
+            "product": "chequered-red-shirt",
+            "position_x": 50,
+            "position_y": 50
+          }
+        }
+      },
+      "block_order": [
+        "product_ykRjUr",
+        "product_KBPHn4",
+        "product_QQHXmb"
+      ],
       "settings": {}
     }
   },
