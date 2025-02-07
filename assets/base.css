@@ -2147,6 +2147,20 @@ input[type='checkbox'] {
   .utility-bar .utility-bar__grid .list-social {
     display: none;
   }
+    h2.custom-banner-title {
+      font-size: 3rem;
+      font-weight: bold;
+  }
+  img.banner-image-mobile {
+      margin-top: 18rem;
+  }
+  a.custom-banner-button {
+      margin-top: 17rem;
+  }
+    p.custom-banner-footer {
+      font-size: 1.2rem;
+      padding: 1rem 0;
+  }
 }
 
 .utility-bar .list-social__item .icon {

@@ -138,16 +138,17 @@
  
  .custom-dropdown-btn::after {
     content: "";
-    position: absolute;   
+    position: absolute;
     transition: transform 0.3s ease;
     height: 100%;
-    top: 0;
-     background: url("https://cdn.shopify.com/s/files/1/0583/4178/5664/files/Vector.jpg?v=1738924526") no-repeat center;
+    top: 1px;
+    background: url("https://cdn.shopify.com/s/files/1/0583/4178/5664/files/Vector.jpg?v=1738924526") no-repeat right;
     background-size: contain;
-    width: 100%;
-    height: 100%;
+    width: 30px;
+    height: 30px;
     padding-left: 10px;
     z-index: 999;
+    right: 4px;
 }
 
 label.custom-dropdown-btn {
@@ -192,10 +193,16 @@ label.custom-dropdown-btn {
       display: block;
   }
 
-  /* Rotate arrow icon when dropdown is open */
-  .custom-dropdown-input:checked + .custom-dropdown-content + .custom-dropdown-btn::after {
-      transform: rotate(180deg);
-  }
+ /* Initial state of the custom-dropdown-btn */
+.custom-dropdown-btn {
+  transition: transform 0.3s ease; /* Smooth rotation */
+}
+
+/* Rotate the button when the checkbox is checked */
+.custom-dropdown-input:checked .custom-dropdown-btn::after {
+  transform: rotate(180deg) !important; /* Rotate the label */
+}
+
   .product-info-wrap {
       display: grid;
       grid-template-columns: 40% 60%;
@@ -295,8 +302,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         <div class="custom-dropdown">
             <label class="custom-dropdown-label">Size:</label>
-            <label id="size-variant-main-text" class="custom-dropdown-btn" for="custom-dropdown-toggle">Choose your size</label>
+            
             <div class="">
+            <label id="size-variant-main-text" class="custom-dropdown-btn" for="custom-dropdown-toggle">Choose your size</label>
               <input type="checkbox" id="custom-dropdown-toggle" class="custom-dropdown-input" style="display:none;">
               <div class="custom-dropdown-content variant-buttons" id="size-options">
                   ${sizeHtml}
@@ -375,7 +383,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .then(response => response.json())
     .then(data => {
-      alert("Item added to cart!");
+      //alert("Item added to cart!");
       modal.style.display = "none";
       overlay.style.display = "none";
     })
