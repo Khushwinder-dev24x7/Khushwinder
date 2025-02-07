@@ -84,10 +84,44 @@
       "settings": {
         "heading_main": "Tisso vison in the wild"
       }
+    },
+    "multicolumn_dXW6AL": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_mpN6yC": {
+          "type": "column",
+          "settings": {
+            "title": "Time Doctor logins",
+            "text": "<p>User Id :  khushwinder.react@gmail.com<br/>Password:  Gv9@xPz2</p>",
+            "link_label": "Checkout Git Repo",
+            "link": "https://github.com/Khushwinder-dev24x7/Khushwinder.git"
+          }
+        }
+      },
+      "block_order": [
+        "column_mpN6yC"
+      ],
+      "settings": {
+        "title": "Git Repo  & Time Doctor Logins",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "ecom_test_banner_Wc64bU",
-    "ecom_test_product_CT34YA"
+    "ecom_test_product_CT34YA",
+    "multicolumn_dXW6AL"
   ]
 }
