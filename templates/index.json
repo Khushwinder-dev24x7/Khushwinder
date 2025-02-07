@@ -21,10 +21,10 @@
         "footer_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
       }
     },
-    "ecom_test_product_ligting_j6MAap": {
-      "type": "ecom-test-product-ligting",
+    "ecom_test_product_CT34YA": {
+      "type": "ecom-test-product",
       "blocks": {
-        "product_ykRjUr": {
+        "product_BN86FU": {
           "type": "product",
           "settings": {
             "product": "black-leather-bag",
@@ -32,7 +32,7 @@
             "position_y": 50
           }
         },
-        "product_KBPHn4": {
+        "product_UbjWNy": {
           "type": "product",
           "settings": {
             "product": "blue-silk-tuxedo",
@@ -40,7 +40,7 @@
             "position_y": 50
           }
         },
-        "product_QQHXmb": {
+        "product_JPPkMi": {
           "type": "product",
           "settings": {
             "product": "chequered-red-shirt",
@@ -48,7 +48,7 @@
             "position_y": 50
           }
         },
-        "product_NBYcTY": {
+        "product_tTnfUX": {
           "type": "product",
           "settings": {
             "product": "classic-leather-jacket",
@@ -56,7 +56,7 @@
             "position_y": 50
           }
         },
-        "product_nUEkhi": {
+        "product_LeXKMk": {
           "type": "product",
           "settings": {
             "product": "classic-varsity-top",
@@ -64,7 +64,7 @@
             "position_y": 50
           }
         },
-        "product_hzjyaA": {
+        "product_V7Xzbm": {
           "type": "product",
           "settings": {
             "product": "dark-denim-top",
@@ -74,18 +74,20 @@
         }
       },
       "block_order": [
-        "product_ykRjUr",
-        "product_KBPHn4",
-        "product_QQHXmb",
-        "product_NBYcTY",
-        "product_nUEkhi",
-        "product_hzjyaA"
+        "product_BN86FU",
+        "product_UbjWNy",
+        "product_JPPkMi",
+        "product_tTnfUX",
+        "product_LeXKMk",
+        "product_V7Xzbm"
       ],
-      "settings": {}
+      "settings": {
+        "heading_main": "Tisso vison in the wild"
+      }
     }
   },
   "order": [
     "ecom_test_banner_Wc64bU",
-    "ecom_test_product_ligting_j6MAap"
+    "ecom_test_product_CT34YA"
   ]
 }
