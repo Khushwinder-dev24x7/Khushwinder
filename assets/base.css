@@ -3622,3 +3622,36 @@ details-disclosure > details {
   flex-direction: column;
   align-items: center;
 }
+a.custom-header-button {
+  background: #FFF544;
+  color: black;
+}
+.custom-header-button::after,.custom-banner-button::after,.button-style-3::after{
+  display: none !important;
+}
+a.custom-header-button {
+  transition: all 0.3s ease;
+}
+
+a.custom-header-button:hover {
+  box-shadow: inset 19rem 0px 0px black;
+  color: white;
+}
+
+
+.button-style-2,.button-style-3 {
+  background: #000000;
+  color: rgb(255, 255, 255) !important;
+}
+.button-style-2,.button-style-3 {
+  transition: all 0.3s ease !important;
+}
+
+.button-style-2:hover {
+  box-shadow: inset 19rem 0px 0px #FFF544 !important;
+  color: white !important;
+}
+.button-style-3:hover {
+  box-shadow: inset 35rem 0px 0px #FFF544 !important;
+  color: white !important;
+}
