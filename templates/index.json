@@ -93,8 +93,8 @@
           "settings": {
             "title": "Time Doctor logins",
             "text": "<p>User Id :  khushwinder.react@gmail.com<br/>Password:  Gv9@xPz2</p>",
-            "link_label": "",
-            "link": ""
+            "link_label": "Checkout Git Repo",
+            "link": "https://github.com/Khushwinder-dev24x7/Khushwinder.git"
           }
         }
       },
