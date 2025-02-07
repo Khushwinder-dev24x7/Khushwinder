@@ -51,7 +51,7 @@
         "product_tTnfUX": {
           "type": "product",
           "settings": {
-            "product": "",
+            "product": "classic-leather-jacket",
             "position_x": 50,
             "position_y": 50
           }
@@ -59,7 +59,7 @@
         "product_LeXKMk": {
           "type": "product",
           "settings": {
-            "product": "",
+            "product": "classic-varsity-top",
             "position_x": 50,
             "position_y": 50
           }
@@ -67,7 +67,7 @@
         "product_V7Xzbm": {
           "type": "product",
           "settings": {
-            "product": "",
+            "product": "dark-denim-top",
             "position_x": 50,
             "position_y": 50
           }
