@@ -21,71 +21,15 @@
         "footer_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
       }
     },
-    "ecom_test_product_ligting_j6MAap": {
-      "type": "ecom-test-product-ligting",
-      "blocks": {
-        "product_ykRjUr": {
-          "type": "product",
-          "settings": {
-            "product": "black-leather-bag",
-            "position_x": 50,
-            "position_y": 50
-          }
-        },
-        "product_KBPHn4": {
-          "type": "product",
-          "settings": {
-            "product": "blue-silk-tuxedo",
-            "position_x": 50,
-            "position_y": 50
-          }
-        },
-        "product_QQHXmb": {
-          "type": "product",
-          "settings": {
-            "product": "chequered-red-shirt",
-            "position_x": 50,
-            "position_y": 50
-          }
-        },
-        "product_NBYcTY": {
-          "type": "product",
-          "settings": {
-            "product": "classic-leather-jacket",
-            "position_x": 50,
-            "position_y": 50
-          }
-        },
-        "product_nUEkhi": {
-          "type": "product",
-          "settings": {
-            "product": "classic-varsity-top",
-            "position_x": 50,
-            "position_y": 50
-          }
-        },
-        "product_hzjyaA": {
-          "type": "product",
-          "settings": {
-            "product": "dark-denim-top",
-            "position_x": 50,
-            "position_y": 50
-          }
-        }
-      },
-      "block_order": [
-        "product_ykRjUr",
-        "product_KBPHn4",
-        "product_QQHXmb",
-        "product_NBYcTY",
-        "product_nUEkhi",
-        "product_hzjyaA"
-      ],
-      "settings": {}
+    "ecom_test_product_CT34YA": {
+      "type": "ecom-test-product",
+      "settings": {
+        "heading_main": "Tisso vison in the wild"
+      }
     }
   },
   "order": [
     "ecom_test_banner_Wc64bU",
-    "ecom_test_product_ligting_j6MAap"
+    "ecom_test_product_CT34YA"
   ]
 }
