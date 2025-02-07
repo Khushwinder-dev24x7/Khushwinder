@@ -7,7 +7,7 @@
       <div class="custom-banner-content">
         <h2 class="custom-banner-title">{{ section.settings.title }}</h2>
         <p class="custom-banner-description">{{ section.settings.description }}</p>
-        <a href="{{ section.settings.button_link }}" class="custom-banner-button">
+        <a href="{{ section.settings.button_link }}" class="custom-banner-button button button--primary">
           {{ section.settings.button_text }}
         </a>     
       </div>
@@ -25,16 +25,6 @@
     text-align: center;
   }
   
-  .custom-banner-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background: black;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-top: 10px;
-  }
-
   @media (max-width: 768px) {    
   
   }
@@ -66,7 +56,7 @@
 
   .custom-banner-content {
       grid-row-start: 2;
-      padding: 1rem 11rem;
+      padding: 1rem 11rem 1rem 8.2rem;
       text-align: start;
   }
   }

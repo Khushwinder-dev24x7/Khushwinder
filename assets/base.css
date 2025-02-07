@@ -4,6 +4,9 @@
   font-weight: normal;
   font-style: normal;
 }
+.lustria{
+  font-family: 'Lustria', serif !important;
+}
 :root {
   --alpha-button-background: 1;
   --alpha-button-border: 1;

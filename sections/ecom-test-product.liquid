@@ -1,7 +1,6 @@
 <section 
-  class="product-section" 
-  style="background-image: url('{{ section.settings.background_image | image_url }}');">
-  
+  class="product-section page-width">
+  <p class="custom-section-heading lustria">{{section.settings.heading_main}}</p>
   <div class="custom-product-grid-main">
     {% for block in section.blocks %}
       {% assign product = all_products[block.settings.product] %}
@@ -11,6 +10,8 @@
        <div class="circle-wrap"> 
        <div class="product" 
           data-product-id="{{ product.id }}" 
+          data-product-variant-color1="{{ product.metafields.custom.variant_color_1 }}" 
+          data-product-variant-color2="{{ product.metafields.custom.variant_color_2 }}" 
           data-product-title="{{ product.title }}"
           data-product-description="{{ product.description | escape }}"
           data-product-image="{{ product.featured_image | image_url }}"
@@ -64,7 +65,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background: white;
-    padding: 0 20px;
+    padding: 1rem 2rem;
     width: 350px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     display: none;
@@ -132,18 +133,19 @@
     cursor: pointer;
     text-align: left;
     position: relative;
+    color:#000000;
 }
  
  .custom-dropdown-btn::after {
-    content: "▼";
-    position: absolute;
-    right: 10px;
+    content: "";
+    position: absolute;   
     transition: transform 0.3s ease;
     height: 100%;
     top: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+     background: url("https://cdn.shopify.com/s/files/1/0583/4178/5664/files/Vector.jpg?v=1738924526") no-repeat center;
+    background-size: contain;
+    width: 100%;
+    height: 100%;
     padding-left: 10px;
     z-index: 999;
 }
@@ -161,7 +163,7 @@ label.custom-dropdown-btn {
     position:absolute;
     width: 100%;
     background: white !important;
-    border: 1px solid #ccc;
+    border: 1px solid #000000;
     max-height: 100px;
     overflow-y: auto;
     display: none;    
@@ -202,7 +204,32 @@ label.custom-dropdown-btn {
   .product-info-wrap p {
       margin: unset !important;
   }
-  
+
+  p.custom-section-heading {
+      font-size: 3rem;
+      margin: 1rem 0 0 0;
+  }
+  span.variant-button-color-badge {   
+    height: 100%;
+    width: 5px;
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    border-left: 1px solid #000000;    
+}
+.variant-button-color-wrap {
+    display: flex;
+}
+.custom-dropdown-content {
+    -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
+    scrollbar-width: none; /* Hides scrollbar in Firefox */
+}
+
+.custom-dropdown-content::-webkit-scrollbar {
+    display: none; /* Hides scrollbar in Chrome, Safari */
+}
+.product-info-wrap .description {
+    font-size: 1.2rem;
+}
 </style>
 
 <script>
@@ -216,10 +243,14 @@ document.addEventListener("DOMContentLoaded", function () {
   products.forEach(product => {
     product.addEventListener("click", function () {
       const productId = this.dataset.productId;
+      const productColor1 = this.dataset.productVariantColor1;
+      const productColor2 = this.dataset.productVariantColor2;
       const productTitle = this.dataset.productTitle;
       const productDescription  = this.dataset.productDescription ;
       const productImage = this.dataset.productImage;
       let productVariants = [];
+      window.gProductColor1 = productColor1;
+      window.gProductColor2 = productColor2;
 
       try {
         productVariants = JSON.parse(this.dataset.productVariants);
@@ -233,8 +264,15 @@ document.addEventListener("DOMContentLoaded", function () {
       let sizes = [...new Set(productVariants.map(v => v.option1))];
       let colors = [...new Set(productVariants.map(v => v.option2))];
 
-      let colorHtml = colors.map(color => `<button class="variant-button color-option" data-value="${color}" style="width:100%;">${color}</button>`).join("");
-      let sizeHtml = sizes.map(size => `<label for="custom-dropdown-toggle" class="size-option" data-value="${size}">${size}</label> `).join("");
+     let colorHtml = colors.map((color, index) => {
+    let colorVariant = `gProductColor${index + 1}`; // productColor1, productColor2, etc.
+        return `<div class="variant-button-color-wrap" style="width:100%;">
+                    <span class="variant-button-color-badge" style="background:${window[colorVariant]};"></span>
+                    <button class="variant-button color-option" data-value="${color}" style="width:100%;">${color}</button>
+                </div>`;
+    }).join("");
+
+      let sizeHtml = sizes.map(size => `<label for="custom-dropdown-toggle" class="size-option" data-value="${size}">${size}</label>`).join("");
 
       modalContent.innerHTML = `
       <div class="product-info-wrap">
@@ -243,8 +281,8 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
         <div class="product-details">    
            <p class="title">${productTitle}</p>
-           <p class="price" id="product-price">Price: ${productVariants[0].price / 100}</p>
-           <p class="description">${productDescription}</p>                  
+           <p class="price" id="product-price">${productVariants[0].price / 100}</p>
+           <div class="description">${productDescription}</div>                  
         </div>
       </div>
 
@@ -351,9 +389,10 @@ document.addEventListener("DOMContentLoaded", function () {
   "name": "Ecom Test Products",
   "settings": [
     {
-      "type": "image_picker",
-      "id": "background_image",
-      "label": "Background Image"
+      "type": "text",
+      "id": "heading_main",
+      "label": "Headin",
+      "default": "Heading"
     }
   ],
   "blocks": [
