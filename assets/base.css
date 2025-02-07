@@ -2152,7 +2152,7 @@ input[type='checkbox'] {
       font-weight: bold;
   }
   img.banner-image-mobile {
-      margin-top: 18rem;
+      margin-top: 18rem !important;
   }
   a.custom-banner-button {
       margin-top: 17rem;
@@ -2160,6 +2160,9 @@ input[type='checkbox'] {
     p.custom-banner-footer {
       font-size: 1.2rem;
       padding: 1rem 0;
+  }
+  p.custom-section-heading.lustria {
+      text-align: center;
   }
 }
 
