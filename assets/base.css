@@ -3649,9 +3649,9 @@ a.custom-header-button:hover {
 
 .button-style-2:hover {
   box-shadow: inset 19rem 0px 0px #FFF544 !important;
-  color: white !important;
+  color: rgb(0, 0, 0) !important;
 }
 .button-style-3:hover {
   box-shadow: inset 35rem 0px 0px #FFF544 !important;
-  color: white !important;
+  color: rgb(0, 0, 0) !important;
 }
