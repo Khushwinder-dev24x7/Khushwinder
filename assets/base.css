@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'Lustria';
+  src: url('https://cdn.shopify.com/s/files/1/0583/4178/5664/files/Lustria-Regular.woff2?v=1738918130') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 :root {
   --alpha-button-background: 1;
   --alpha-button-border: 1;
