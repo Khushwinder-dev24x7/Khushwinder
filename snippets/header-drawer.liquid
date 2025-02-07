@@ -19,7 +19,7 @@
     <div id="menu-drawer" class="gradient menu-drawer motion-reduce color-{{ section.settings.menu_color_scheme }}">
       <div class="menu-drawer__inner-container">
         <div class="menu-drawer__navigation-container">
-          <nav class="menu-drawer__navigation">
+          <nav class="menu-drawer__navigation" style="display:none !important;">
             <ul class="menu-drawer__menu has-submenu list-menu" role="list">
               {%- for link in section.settings.menu.links -%}
                 <li>
@@ -135,7 +135,7 @@
               {%- endfor -%}
             </ul>
           </nav>
-          <div class="menu-drawer__utility-links">
+          <div class="menu-drawer__utility-links" style="display:none!important;">
             {%- if shop.customer_accounts_enabled -%}
               <a
                 href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
@@ -287,6 +287,14 @@
                 </li>
               {%- endif -%}
             </ul>
+          </div>
+          <div class="header-custom-content-mobile">
+            <div class="Header-info-text">
+                <p class="info-text">{{section.settings.header_info}}</p>
+            </div>            
+            <div class="Header-action-button">
+                <a href="{{ shop.url }}/collections" class="custom-header-button button button--primary">CHOOSE GIFT →</a>
+            </div>
           </div>
         </div>
       </div>
